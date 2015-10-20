@@ -1,47 +1,195 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en-us">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta charset="UTF-8">
     <title>OSLC Javascript Client by fernando-silva</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>OSLC Javascript Client</h1>
-        <p></p>
+    <section class="page-header">
+      <h1 class="project-name">OSLC Javascript Client</h1>
+      <h2 class="project-tagline"></h2>
+      <a href="https://github.com/fernando-silva/oslc-js-client" class="btn">View on GitHub</a>
+      <a href="https://github.com/fernando-silva/oslc-js-client/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/fernando-silva/oslc-js-client/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-        <p class="view"><a href="https://github.com/fernando-silva/oslc-js-client">View the Project on GitHub <small>fernando-silva/oslc-js-client</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/fernando-silva/oslc-js-client/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/fernando-silva/oslc-js-client/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/fernando-silva/oslc-js-client">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
-<a id="oslc-js-client" class="anchor" href="#oslc-js-client" aria-hidden="true"><span class="octicon octicon-link"></span></a>oslc-js-client</h1>
-
-<p>See examples/all.html for examples of use.
-In order to use this library in a CORS environment, you need to enable CORS requests in your server. See <a href="http://enable-cors.org/">http://enable-cors.org/</a>.</p>
+    <section class="main-content">
+      <h1>
+<a id="lyo-javascript-client" class="anchor" href="#lyo-javascript-client" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lyo Javascript Client</h1>
 
 <p><a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/fernando-silva/oslc-js-client/trend.png" alt="Bitdeli Badge"></a></p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/fernando-silva">fernando-silva</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+
+<p><strong>Version 0.1:</strong></p>
+
+<p>This is a initial version of a OSLC javascript client that can be used to interact with OSLC enabled tools like Rational Team Concert, Rational Quality Manager, ClearQuest and Bugzilla Lyo Adapter. In this version, I have only tested with Change Management tools, but the intention is that this client works with another domains like Automation, Requirements Management, etc. Feel free to test and give feedback.</p>
+
+<p>The main functionalities that are implemented in this version are:</p>
+
+<ul>
+<li>Creation</li>
+<li>Update</li>
+<li>Delete</li>
+<li>Creation Dialog</li>
+<li>Selection Dialog</li>
+<li>Query</li>
+</ul>
+
+<p>Obs.: In order to properly use the client, you must be logged your OSLC Server Tool and this tool needs to be <a href="https://pt.wikipedia.org/wiki/Cross-origin_resource_sharing">CORS</a> enabled.</p>
+
+<p><strong>ENABLING CORS:</strong></p>
+
+<ul>
+<li>Jazz based products: I recommend the use of <a href="https://github.com/fernando-silva/equinoxcorsfilter#equinox-cors-filter">Equinox CORS Filter</a>.</li>
+<li>Websphere: <a href="http://clmpractice.org/2015/01/07/how-to-enable-cors-with-rational-team-concert-ccm-running-on-a-websphere-application-server-was-8-5/">http://clmpractice.org/2015/01/07/how-to-enable-cors-with-rational-team-concert-ccm-running-on-a-websphere-application-server-was-8-5/</a>
+</li>
+<li>
+<p>Lyo Bugzilla Adapter:<br>
+            1. You need to edit de pom.xml file and add a dependency to com.thetransactioncompany:cors-filter:2.4<br>
+            2. After that you need to edit the web.xml file and add the following filter:  </p>
+
+<pre><code>        &lt;filter&gt;
+        &lt;filter-name&gt;cross-origin&lt;/filter-name&gt;
+        &lt;filter-class&gt;com.thetransactioncompany.cors.CORSFilter&lt;/filter-class&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;cors.supportedMethods&lt;/param-name&gt;
+            &lt;param-value&gt;GET,POST,HEAD,OPTIONS,PUT,DELETE&lt;/param-value&gt;
+          &lt;/init-param&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;cors.exposedHeaders&lt;/param-name&gt;
+            &lt;param-value&gt;Location,Etag,Content-Length&lt;/param-value&gt;
+          &lt;/init-param&gt;  
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+        &lt;/filter&gt;
+        &lt;filter-mapping&gt;
+            &lt;filter-name&gt;cross-origin&lt;/filter-name&gt;
+            &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+        &lt;/filter-mapping&gt;
+</code></pre>
+</li>
+</ul>
+
+<p><strong>DEPENDENCIES</strong></p>
+
+<ul>
+<li>jQuery 1.11.4</li>
+<li>jQuery UI 1.11.4</li>
+<li>jQuery UI CSS File</li>
+<li>An Rdf library (<a href="https://github.com/rdf-ext/rdf-ext-dist/blob/master/dist/rdf-ext.js">rdf-ext</a> or <a href="https://github.com/linkeddata/rdflib.js/blob/master/dist/rdflib.js">rdflib.js</a>)</li>
+<li>An Rdf lib Wrapper (Currently two implementations are provided: <a href="rdfextWrapper.js">rdfextWrapper.js</a> and  <a href="rdflibjsWrapper.js">rdflibjsWrapper.js</a> )</li>
+</ul>
+
+<p>Examples:</p>
+
+<pre><code> &lt;script src="https://code.jquery.com/jquery.min.js"&gt;&lt;/script&gt;
+ &lt;script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"&gt;&lt;/script&gt;
+ &lt;link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"&gt;&lt;/link&gt;
+ &lt;script src="../rdflib.js"&gt;&lt;/script&gt;
+ &lt;script src="../rdflibjsWrapper.js"&gt;&lt;/script&gt;
+
+or
+
+ &lt;script src="https://code.jquery.com/jquery.min.js"&gt;&lt;/script&gt;
+ &lt;script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"&gt;&lt;/script&gt;
+ &lt;link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"&gt;&lt;/link&gt;
+ &lt;script src="../rdf-ext.js"&gt;&lt;/script&gt;
+ &lt;script src="../rdfextWrapper.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<p><strong>USING</strong></p>
+
+<p>See <a href="examples/all.html">examples/all.html</a>.</p>
+
+<p><strong>API DOCUMENTATION</strong></p>
+
+<p>To generate the documentation use JSDoc. Example:</p>
+
+<p>/path/to/jsdoc oslcClient.js README.md</p>
+
+<p><strong>LIMITATIONS</strong></p>
+
+<ul>
+<li><p>No support for Json as Accept Media Type, only for submission of updates and creation of resources</p></li>
+<li><p>Both rdflib.js and rdf-ext have problems with rdf:parseType="Literal" when parsing application/rdf+xml. As a workaround you can do:</p></li>
+</ul>
+
+<p>For rdflib.js:</p>
+
+<p>Change the addLiteral function that is inside frameFactory function at $rdf.RDFParser class</p>
+
+<pre><code> `'addLiteral':function(value){
+ if (this.parent.datatype){
+      if(this.parent.datatype === RDFParser.ns.RDF + "XMLLiteral" ){
+              this.node = this.store.literal(value.textContent, "", this.store.sym(this.parent.datatype));
+    }
+    else {
+        this.node = this.store.literal(value, "", this.store.sym(this.parent.datatype));
+    }
+</code></pre>
+
+<p>}
+   else {
+     this.node = this.store.literal(value, this.lang);
+   }`</p>
+
+<p>For rdf-ext:</p>
+
+<p>Change the function  domNodesToString inside RdfXmlParser.prototype.process:</p>
+
+<pre><code> `// convert an array of DOM nodes to a XML string
+ var domNodesToString = function (nodes) {
+      var xmlString = '';
+      if(nodes){
+        for(var i=0; i&lt;nodes.length; i++) {
+          if(nodes[i].nodeType=== Node.TEXT_NODE){
+            xmlString += nodes[i].textContent;
+           }
+           else {
+             xmlString += nodes[i].toString();
+           }
+       }
+      }
+     return xmlString;
+    }; `
+</code></pre>
+
+<ul>
+<li>Currently there is no rdf/xml serializer for rdf-ext. As a workaround you can:</li>
+</ul>
+
+<p>Provide the rdflib.js file and then the rdfextWrapper will convert the graph to N3 and use rdflib.js to serialize to rdf/xml.</p>
+
+<p>Or use the raw data that was returned to serialize the xml response (see the function getChangeRequest inside <a href="examples/all.html">examples/all.html</a> for more information):</p>
+
+<pre><code> var xmlString = (new XMLSerializer()).serializeToString(data);     
+</code></pre>
+
+<p><strong>COPYRIGHT AND LICENCE</strong></p>
+
+<p>Copyright (c) 2015 Fernando Silva.
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+ and Eclipse Distribution License v. 1.0 which accompanies this distribution.</p>
+
+<p>The Eclipse Public License is available at <a href="http://www.eclipse.org/legal/epl-v10.html">http://www.eclipse.org/legal/epl-v10.html</a>
+and the Eclipse Distribution License is available at
+<a href="http://www.eclipse.org/org/documents/edl-v10.php">http://www.eclipse.org/org/documents/edl-v10.php</a>.</p>
+
+<p>Contributors:
+     Fernando Silva - initial API and implementation</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/fernando-silva/oslc-js-client">OSLC Javascript Client</a> is maintained by <a href="https://github.com/fernando-silva">fernando-silva</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
+
+    </section>
+
+  
   </body>
 </html>
